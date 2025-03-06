@@ -2,14 +2,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useTheme } from '@/hooks/useTheme';
 
 const Hero = () => {
+  const { t, language } = useTranslation();
+  const { theme } = useTheme();
+  
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const isRtl = language === 'ar' || language === 'ur';
 
   return (
     <section 
@@ -22,7 +29,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col space-y-6"
+            className={`flex flex-col space-y-6 ${isRtl ? 'md:order-last text-right' : ''}`}
           >
             <motion.span 
               className="text-primary inline-flex items-center text-sm font-medium px-3 py-1 rounded-full bg-primary/10 w-fit"
@@ -30,7 +37,7 @@ const Hero = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              Backend Developer
+              {isRtl ? "مطور الواجهة الخلفية" : "Backend Developer"}
             </motion.span>
             
             <motion.h1 
@@ -39,7 +46,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              Shaheer Zeb Khan
+              {t('name')}
             </motion.h1>
             
             <motion.p 
@@ -48,11 +55,11 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Crafting scalable backend solutions with expertise in JavaScript, TypeScript, Python, and cloud services.
+              {t('subtitle')}
             </motion.p>
             
             <motion.div 
-              className="flex flex-wrap gap-4 pt-2"
+              className={`flex flex-wrap gap-4 pt-2 ${isRtl ? 'justify-end' : ''}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
@@ -61,13 +68,13 @@ const Hero = () => {
                 href="#contact" 
                 className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-medium transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-primary/20"
               >
-                Get in Touch
+                {t('cta.contact')}
               </a>
               <a 
                 href="#experience" 
                 className="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-6 py-3 rounded-lg font-medium transition-all transform hover:scale-[1.02] active:scale-[0.98]"
               >
-                View Experience
+                {t('cta.experience')}
               </a>
             </motion.div>
           </motion.div>
@@ -76,7 +83,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="relative hidden md:block"
+            className={`relative hidden md:block ${isRtl ? 'md:order-first' : ''}`}
           >
             <div className="relative h-[400px] w-full">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl overflow-hidden">
@@ -90,12 +97,12 @@ const Hero = () => {
                     <div className="h-3 w-3 bg-yellow-500 rounded-full"></div>
                     <div className="h-3 w-3 bg-green-500 rounded-full"></div>
                   </div>
-                  <pre className="text-xs md:text-sm font-mono text-foreground/80 overflow-hidden">
+                  <pre className={`text-xs md:text-sm font-mono text-foreground/80 overflow-hidden ${isRtl ? 'text-right' : ''}`}>
                     <span className="text-primary">const</span> <span className="text-blue-500">developer</span> = {'{'}<br/>
-                    {'  '}name: <span className="text-green-500">"Shaheer Zeb Khan"</span>,<br/>
+                    {'  '}name: <span className="text-green-500">"{t('name')}"</span>,<br/>
                     {'  '}role: <span className="text-green-500">"Senior Backend Developer"</span>,<br/>
                     {'  '}experience: <span className="text-orange-500">4</span>+,<br/>
-                    {'  '}skills: [<span className="text-green-500">"Node.js"</span>, <span className="text-green-500">"TypeScript"</span>, <span className="text-green-500">"Python"</span>, <span className="text-green-500">"AWS"</span>, <span className="text-green-500">"GCP"</span>],<br/>
+                    {'  '}skills: [<span className="text-green-500">"Node.js"</span>, <span className="text-green-500">"TypeScript"</span>, <span className="text-green-500">"Python"</span>],<br/>
                     {'  '}passion: <span className="text-green-500">"Building scalable solutions"</span><br/>
                     {'}'}
                   </pre>
@@ -122,8 +129,8 @@ const Hero = () => {
       </motion.div>
       
       {/* Background elements */}
-      <div className="absolute top-20 right-20 h-64 w-64 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-20 h-64 w-64 bg-primary/5 rounded-full blur-3xl" />
+      <div className={`absolute top-20 ${isRtl ? 'left-20' : 'right-20'} h-64 w-64 bg-primary/5 rounded-full blur-3xl`} />
+      <div className={`absolute bottom-20 ${isRtl ? 'right-20' : 'left-20'} h-64 w-64 bg-primary/5 rounded-full blur-3xl`} />
     </section>
   );
 };

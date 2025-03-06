@@ -67,6 +67,7 @@ export default {
 			fontFamily: {
 				sans: ['SF Pro Display', 'system-ui', 'sans-serif'],
 				mono: ['SF Mono', 'monospace'],
+				arabic: ['Amiri', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -105,6 +106,10 @@ export default {
 					'0%': { transform: 'translateX(-10px)', opacity: '0' },
 					'100%': { transform: 'translateX(0)', opacity: '1' },
 				},
+				slideInRtl: {
+					'0%': { transform: 'translateX(10px)', opacity: '0' },
+					'100%': { transform: 'translateX(0)', opacity: '1' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -115,6 +120,7 @@ export default {
 				scale: 'scale 0.3s ease-out forwards',
 				slideUp: 'slideUp 0.5s ease-out forwards',
 				slideIn: 'slideIn 0.5s ease-out forwards',
+				slideInRtl: 'slideInRtl 0.5s ease-out forwards',
 			},
 		}
 	},

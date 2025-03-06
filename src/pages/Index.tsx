@@ -8,8 +8,11 @@ import Experience from '@/components/Experience';
 import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Index = () => {
+  const { language } = useTranslation();
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('.section');
@@ -42,7 +45,8 @@ const Index = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="min-h-screen"
+        className={`min-h-screen ${language === 'ar' || language === 'ur' ? 'font-arabic' : 'font-sans'}`}
+        dir={language === 'ar' || language === 'ur' ? 'rtl' : 'ltr'}
       >
         <Header />
         

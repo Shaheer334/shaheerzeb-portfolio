@@ -2,17 +2,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { Moon, Sun, Globe } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const { theme, toggleTheme } = useTheme();
+  const { language, changeLanguage, t } = useTranslation();
   
   const sections = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' }
+    { id: 'home', label: t('nav.home') },
+    { id: 'about', label: t('nav.about') },
+    { id: 'experience', label: t('nav.experience') },
+    { id: 'skills', label: t('nav.skills') },
+    { id: 'contact', label: t('nav.contact') }
   ];
 
   useEffect(() => {
@@ -26,19 +31,21 @@ const Header = () => {
         offsetTop: document.getElementById(section.id)?.offsetTop || 0
       }));
       
-      // Find current section
-      const currentSection = sectionElements.findLast((section) => 
-        position >= section.offsetTop - 200
-      );
+      // Find current section (without using findLast which caused the error)
+      let currentSection = { id: 'home', offsetTop: 0 };
       
-      if (currentSection) {
-        setActiveSection(currentSection.id);
+      for (const section of sectionElements) {
+        if (position >= section.offsetTop - 200) {
+          currentSection = section;
+        }
       }
+      
+      setActiveSection(currentSection.id);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [sections]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -70,48 +77,103 @@ const Header = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <span className="text-primary font-semibold">Shaheer Zeb</span>
+          <span className="text-primary font-semibold">{t('name')}</span>
         </motion.div>
         
-        <motion.ul 
-          className="hidden md:flex space-x-8 items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          {sections.map((section, index) => (
-            <motion.li 
-              key={section.id}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * (index + 1) }}
-            >
-              <button 
-                onClick={() => scrollToSection(section.id)}
-                className={cn(
-                  "relative px-1 py-2 text-sm link-hover transition-colors",
-                  activeSection === section.id 
-                    ? "text-primary font-medium" 
-                    : "text-foreground/70 hover:text-foreground"
-                )}
+        <div className="flex items-center gap-4">
+          <motion.ul 
+            className="hidden md:flex space-x-8 items-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            {sections.map((section, index) => (
+              <motion.li 
+                key={section.id}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * (index + 1) }}
               >
-                {section.label}
-                {activeSection === section.id && (
-                  <motion.span 
-                    className="absolute -bottom-1 left-0 h-0.5 bg-primary"
-                    layoutId="activeSection"
-                    initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
+                <button 
+                  onClick={() => scrollToSection(section.id)}
+                  className={cn(
+                    "relative px-1 py-2 text-sm link-hover transition-colors",
+                    activeSection === section.id 
+                      ? "text-primary font-medium" 
+                      : "text-foreground/70 hover:text-foreground"
+                  )}
+                >
+                  {section.label}
+                  {activeSection === section.id && (
+                    <motion.span 
+                      className="absolute -bottom-1 left-0 h-0.5 bg-primary"
+                      layoutId="activeSection"
+                      initial={{ width: 0 }}
+                      animate={{ width: '100%' }}
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </button>
+              </motion.li>
+            ))}
+          </motion.ul>
+          
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-secondary transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </button>
+            
+            <div className="relative group">
+              <button 
+                className="p-2 rounded-full hover:bg-secondary transition-colors"
+                aria-label="Change language"
+              >
+                <Globe className="h-5 w-5" />
               </button>
-            </motion.li>
-          ))}
-        </motion.ul>
-        
-        <div className="md:hidden">
-          {/* Mobile menu button would go here */}
+              
+              <div className="absolute right-0 mt-2 w-32 py-2 bg-background border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                <button 
+                  onClick={() => changeLanguage('en')} 
+                  className={cn(
+                    "w-full px-4 py-1 text-left hover:bg-secondary transition-colors",
+                    language === 'en' ? 'text-primary font-medium' : ''
+                  )}
+                >
+                  English
+                </button>
+                <button 
+                  onClick={() => changeLanguage('ar')} 
+                  className={cn(
+                    "w-full px-4 py-1 text-left hover:bg-secondary transition-colors",
+                    language === 'ar' ? 'text-primary font-medium' : ''
+                  )}
+                >
+                  العربية
+                </button>
+                <button 
+                  onClick={() => changeLanguage('ur')} 
+                  className={cn(
+                    "w-full px-4 py-1 text-left hover:bg-secondary transition-colors",
+                    language === 'ur' ? 'text-primary font-medium' : ''
+                  )}
+                >
+                  اردو
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="md:hidden">
+            {/* Mobile menu button would go here */}
+          </div>
         </div>
       </nav>
     </motion.header>

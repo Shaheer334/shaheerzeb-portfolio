@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 210 100% 50%;
+    --primary: 222.2 47.4% 40%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 4.8% 95.9%;
@@ -55,8 +55,8 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 210 100% 50%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 210 100% 65%;
+    --primary-foreground: 240 5.9% 10%;
 
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -96,6 +96,21 @@
   }
 }
 
+/* RTL Support */
+.rtl * {
+  text-align: right;
+}
+
+.rtl .left-0 {
+  right: 0;
+  left: auto;
+}
+
+.rtl .right-0 {
+  left: 0;
+  right: auto;
+}
+
 /* Custom animations */
 .animate-delay-100 {
   animation-delay: 100ms;
@@ -119,6 +134,13 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  background: rgba(30, 30, 40, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Section transitions */
@@ -156,6 +178,11 @@ html {
   transition: width 0.3s ease;
 }
 
+.rtl .link-hover::after {
+  left: auto;
+  right: 0;
+}
+
 .link-hover:hover::after {
   width: 100%;
 }
@@ -180,6 +207,24 @@ html {
     transparent
   );
   animation: shimmer 2s infinite;
+}
+
+.dark .shimmer::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+}
+
+/* Dark mode specific styles */
+.dark .bg-card {
+  background-color: hsl(240 3.7% 15.9% / 0.8);
+}
+
+.dark .border-border {
+  border-color: hsl(240 3.7% 15.9%);
 }
 
 @media (prefers-reduced-motion) {
