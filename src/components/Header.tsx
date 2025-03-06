@@ -63,7 +63,7 @@ const Header = () => {
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-8",
         scrolled 
-          ? "bg-background/80 backdrop-blur-lg border-b" 
+          ? "bg-background/95 backdrop-blur-lg border-b shadow-sm" 
           : "bg-transparent"
       )}
       initial={{ y: -100, opacity: 0 }}
@@ -97,10 +97,10 @@ const Header = () => {
                 <button 
                   onClick={() => scrollToSection(section.id)}
                   className={cn(
-                    "relative px-1 py-2 text-sm link-hover transition-colors",
+                    "relative px-3 py-2 rounded-md text-sm transition-colors nav-hover",
                     activeSection === section.id 
-                      ? "text-primary font-medium" 
-                      : "text-foreground/70 hover:text-foreground"
+                      ? "text-primary font-medium bg-primary/10" 
+                      : "text-foreground/80 hover:text-foreground"
                   )}
                 >
                   {section.label}
@@ -121,7 +121,7 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <button 
               onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-secondary transition-colors"
+              className="p-2 rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? (
@@ -133,7 +133,7 @@ const Header = () => {
             
             <div className="relative group">
               <button 
-                className="p-2 rounded-full hover:bg-secondary transition-colors"
+                className="p-2 rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
                 aria-label="Change language"
               >
                 <Globe className="h-5 w-5" />
@@ -143,7 +143,7 @@ const Header = () => {
                 <button 
                   onClick={() => changeLanguage('en')} 
                   className={cn(
-                    "w-full px-4 py-1 text-left hover:bg-secondary transition-colors",
+                    "w-full px-4 py-2 text-left hover:bg-accent transition-colors rounded-sm",
                     language === 'en' ? 'text-primary font-medium' : ''
                   )}
                 >
@@ -152,7 +152,7 @@ const Header = () => {
                 <button 
                   onClick={() => changeLanguage('ar')} 
                   className={cn(
-                    "w-full px-4 py-1 text-left hover:bg-secondary transition-colors",
+                    "w-full px-4 py-2 text-left hover:bg-accent transition-colors rounded-sm",
                     language === 'ar' ? 'text-primary font-medium' : ''
                   )}
                 >
@@ -161,7 +161,7 @@ const Header = () => {
                 <button 
                   onClick={() => changeLanguage('ur')} 
                   className={cn(
-                    "w-full px-4 py-1 text-left hover:bg-secondary transition-colors",
+                    "w-full px-4 py-2 text-left hover:bg-accent transition-colors rounded-sm",
                     language === 'ur' ? 'text-primary font-medium' : ''
                   )}
                 >
