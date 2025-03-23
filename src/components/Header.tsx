@@ -16,8 +16,8 @@ const Header = () => {
     { id: 'home', label: t('nav.home') },
     { id: 'about', label: t('nav.about') },
     { id: 'experience', label: t('nav.experience') },
-    { id: 'skills', label: t('nav.skills') },
-    { id: 'contact', label: t('nav.contact') }
+    { id: 'skills', label: t('nav.skills') }
+    // Contact section removed
   ];
 
   useEffect(() => {
