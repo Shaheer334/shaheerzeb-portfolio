@@ -1,10 +1,12 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { Mail, Phone, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { toast } from "sonner";
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Contact = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const controls = useAnimation();
@@ -56,7 +58,7 @@ const Contact = () => {
     
     // Simulate form submission
     setTimeout(() => {
-      toast.success("Message sent successfully! I'll get back to you soon.");
+      toast.success(t('contact.success'));
       setFormData({ name: '', email: '', message: '' });
       setIsSubmitting(false);
     }, 1500);
@@ -72,10 +74,10 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <motion.span variants={itemVariants} className="text-primary text-sm font-medium px-3 py-1 rounded-full bg-primary/10 inline-block mb-4">
-            Get In Touch
+            {t('contact.title')}
           </motion.span>
           <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold">
-            Contact Me
+            {t('contact.subtitle')}
           </motion.h2>
         </motion.div>
         
@@ -83,48 +85,13 @@ const Contact = () => {
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center"
+          className="grid grid-cols-1 max-w-xl mx-auto"
         >
-          <motion.div variants={itemVariants} className="space-y-6">
-            <h3 className="text-2xl font-semibold">Let's Connect</h3>
-            <p className="text-muted-foreground">
-              Have a project in mind or want to discuss potential opportunities? Feel free to reach out.
-            </p>
-            
-            <div className="space-y-4 mt-8">
-              <a 
-                href="mailto:shaheerzeb1@gmail.com" 
-                className="flex items-center gap-4 p-4 rounded-xl bg-card hover:bg-card/80 transition-colors group"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Mail className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Email</h4>
-                  <p className="text-muted-foreground">shaheerzeb1@gmail.com</p>
-                </div>
-              </a>
-              
-              <a 
-                href="tel:+923000920039" 
-                className="flex items-center gap-4 p-4 rounded-xl bg-card hover:bg-card/80 transition-colors group"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Phone className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Phone</h4>
-                  <p className="text-muted-foreground">(+92) 300-0920039</p>
-                </div>
-              </a>
-            </div>
-          </motion.div>
-          
           <motion.div variants={itemVariants}>
             <form onSubmit={handleSubmit} className="bg-card rounded-2xl shadow-lg p-6 md:p-8">
               <div className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="block mb-2 text-sm font-medium">Name</label>
+                  <label htmlFor="name" className="block mb-2 text-sm font-medium">{t('contact.name')}</label>
                   <input
                     type="text"
                     id="name"
@@ -133,12 +100,12 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
-                    placeholder="Your name"
+                    placeholder={t('contact.name')}
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block mb-2 text-sm font-medium">Email</label>
+                  <label htmlFor="email" className="block mb-2 text-sm font-medium">{t('contact.email')}</label>
                   <input
                     type="email"
                     id="email"
@@ -147,12 +114,12 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
-                    placeholder="Your email"
+                    placeholder={t('contact.email')}
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block mb-2 text-sm font-medium">Message</label>
+                  <label htmlFor="message" className="block mb-2 text-sm font-medium">{t('contact.message')}</label>
                   <textarea
                     id="message"
                     name="message"
@@ -161,7 +128,7 @@ const Contact = () => {
                     required
                     rows={5}
                     className="w-full px-4 py-3 rounded-lg border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors resize-none"
-                    placeholder="Your message"
+                    placeholder={t('contact.message')}
                   />
                 </div>
                 
@@ -174,7 +141,7 @@ const Contact = () => {
                     <>Sending...</>
                   ) : (
                     <>
-                      Send Message
+                      {t('contact.send')}
                       <Send className="h-5 w-5" />
                     </>
                   )}
