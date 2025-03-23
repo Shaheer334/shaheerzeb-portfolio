@@ -7,7 +7,7 @@ export type Language = 'en' | 'ar' | 'ur';
 interface TranslationContextType {
   language: Language;
   changeLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string) => any; // Changed return type to any to support both strings and arrays
 }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
@@ -39,7 +39,7 @@ export const TranslationProvider = ({ children }: { children: ReactNode }) => {
     setLanguage(lang);
   };
 
-  const t = (key: string): string => {
+  const t = (key: string): any => {
     // Split the key by dots to navigate nested objects
     const keys = key.split('.');
     
@@ -48,24 +48,24 @@ export const TranslationProvider = ({ children }: { children: ReactNode }) => {
     
     // Navigate through the keys
     for (const k of keys) {
-      if (translation && translation[k]) {
+      if (translation && translation[k] !== undefined) {
         translation = translation[k];
       } else {
         // Fallback to English if translation not found
         let fallbackTranslation = locales.en;
         for (const fallbackKey of keys) {
-          if (fallbackTranslation && fallbackTranslation[fallbackKey]) {
+          if (fallbackTranslation && fallbackTranslation[fallbackKey] !== undefined) {
             fallbackTranslation = fallbackTranslation[fallbackKey];
           } else {
             console.warn(`Translation key "${key}" not found`);
             return key; // Return the key itself if no translation found
           }
         }
-        return typeof fallbackTranslation === 'string' ? fallbackTranslation : key;
+        return fallbackTranslation;
       }
     }
     
-    return typeof translation === 'string' ? translation : key;
+    return translation;
   };
 
   return (

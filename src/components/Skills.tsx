@@ -39,26 +39,47 @@ const Skills = () => {
     }
   };
 
+  // Get the skills data and ensure they are arrays
+  const backendSkills = Array.isArray(t('skills.backend')) 
+    ? t('skills.backend') 
+    : [t('skills.backend')];
+    
+  const languageSkills = Array.isArray(t('skills.languages')) 
+    ? t('skills.languages') 
+    : [t('skills.languages')];
+    
+  const cloudSkills = Array.isArray(t('skills.cloud')) 
+    ? t('skills.cloud') 
+    : [t('skills.cloud')];
+    
+  const engineeringSkills = Array.isArray(t('skills.engineering')) 
+    ? t('skills.engineering') 
+    : [t('skills.engineering')];
+    
+  const professionalSkills = Array.isArray(t('skills.professional')) 
+    ? t('skills.professional') 
+    : [t('skills.professional')];
+
   const skillCategories = [
     {
       name: t('skills.categories.backend'),
-      skills: t('skills.backend')
+      skills: backendSkills
     },
     {
       name: t('skills.categories.languages'),
-      skills: t('skills.languages')
+      skills: languageSkills
     },
     {
       name: t('skills.categories.cloud'),
-      skills: t('skills.cloud')
+      skills: cloudSkills
     },
     {
       name: t('skills.categories.engineering'),
-      skills: t('skills.engineering')
+      skills: engineeringSkills
     },
     {
       name: t('skills.categories.professional'),
-      skills: t('skills.professional')
+      skills: professionalSkills
     }
   ];
 

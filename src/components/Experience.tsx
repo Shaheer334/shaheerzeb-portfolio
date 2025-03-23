@@ -40,27 +40,40 @@ const Experience = () => {
     }
   };
 
+  // Get the experience data structures from the translation file
+  const tripshepherdPoints = Array.isArray(t('experience.roles.tripshepherd.points')) 
+    ? t('experience.roles.tripshepherd.points') 
+    : [t('experience.roles.tripshepherd.points')];
+    
+  const qmhPoints = Array.isArray(t('experience.roles.qmh.points')) 
+    ? t('experience.roles.qmh.points') 
+    : [t('experience.roles.qmh.points')];
+    
+  const aksaPoints = Array.isArray(t('experience.roles.aksa.points')) 
+    ? t('experience.roles.aksa.points') 
+    : [t('experience.roles.aksa.points')];
+
   const experiences = [
     {
       company: t('experience.roles.tripshepherd.company'),
       position: t('experience.roles.tripshepherd.title'),
       period: t('experience.roles.tripshepherd.period'),
       type: t('experience.roles.tripshepherd.type'),
-      highlights: t('experience.roles.tripshepherd.points')
+      highlights: tripshepherdPoints
     },
     {
       company: t('experience.roles.qmh.company'),
       position: t('experience.roles.qmh.title'),
       period: t('experience.roles.qmh.period'),
       type: t('experience.roles.qmh.type'),
-      highlights: t('experience.roles.qmh.points')
+      highlights: qmhPoints
     },
     {
       company: t('experience.roles.aksa.company'),
       position: t('experience.roles.aksa.title'),
       period: t('experience.roles.aksa.period'),
       type: t('experience.roles.aksa.type'),
-      highlights: t('experience.roles.aksa.points')
+      highlights: aksaPoints
     }
   ];
 
