@@ -30,6 +30,9 @@ export const TranslationProvider = ({ children }: { children: ReactNode }) => {
     } else {
       document.documentElement.classList.remove('rtl');
     }
+
+    // Set language attribute for screen readers
+    document.documentElement.lang = language;
   }, [language]);
 
   const changeLanguage = (lang: Language) => {
@@ -49,14 +52,16 @@ export const TranslationProvider = ({ children }: { children: ReactNode }) => {
         translation = translation[k];
       } else {
         // Fallback to English if translation not found
-        translation = locales.en;
+        let fallbackTranslation = locales.en;
         for (const fallbackKey of keys) {
-          if (translation && translation[fallbackKey]) {
-            translation = translation[fallbackKey];
+          if (fallbackTranslation && fallbackTranslation[fallbackKey]) {
+            fallbackTranslation = fallbackTranslation[fallbackKey];
           } else {
+            console.warn(`Translation key "${key}" not found`);
             return key; // Return the key itself if no translation found
           }
         }
+        return typeof fallbackTranslation === 'string' ? fallbackTranslation : key;
       }
     }
     
