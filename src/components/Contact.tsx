@@ -76,9 +76,6 @@ const Contact = () => {
           <motion.span variants={itemVariants} className="text-primary text-sm font-medium px-3 py-1 rounded-full bg-primary/10 inline-block mb-4">
             {t('contact.title')}
           </motion.span>
-          <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold">
-            {t('contact.subtitle')}
-          </motion.h2>
         </motion.div>
         
         <motion.div 
