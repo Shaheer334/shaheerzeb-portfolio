@@ -2,11 +2,13 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Experience = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const controls = useAnimation();
+  const { t } = useTranslation();
   
   useEffect(() => {
     if (isInView) {
@@ -40,46 +42,25 @@ const Experience = () => {
 
   const experiences = [
     {
-      company: "TripShepherd",
-      position: "Senior Backend Developer",
-      period: "May 2024 - Present",
-      type: "Hybrid",
-      highlights: [
-        "Developed cloud functions on Google Cloud with high availability and fault tolerance",
-        "Designed database schemas with event-driven architectures for scalable solutions",
-        "Integrated AI-driven APIs (Google Vision) and built RESTful APIs with Node.js, Express.js, Nest.js",
-        "Reduced API latency by 45ms and decreased server costs by over 44%",
-        "Implemented security and data protection practices",
-        "Used Agile methodology for development and Jira for project management"
-      ]
+      company: t('experience.roles.tripshepherd.company'),
+      position: t('experience.roles.tripshepherd.title'),
+      period: t('experience.roles.tripshepherd.period'),
+      type: t('experience.roles.tripshepherd.type'),
+      highlights: t('experience.roles.tripshepherd.points')
     },
     {
-      company: "QMH Technologies",
-      position: "Lead Backend Developer",
-      period: "June 2022 - April 2024",
-      type: "Hybrid",
-      highlights: [
-        "Led a team of five developers designing scalable applications with microservices",
-        "Integrated payment processing with Stripe and PayPal",
-        "Managed AWS infrastructure with CI/CD pipelines, Docker, and Kubernetes",
-        "Enhanced security with user authentication and authorization systems",
-        "Streamlined database solutions with MongoDB, PostgreSQL, Redis, and MySQL",
-        "Used Kafka for data streaming, boosting efficiency by 40%",
-        "Optimized service communication using gRPC",
-        "Improved system monitoring with Prometheus, Grafana, and Elasticsearch"
-      ]
+      company: t('experience.roles.qmh.company'),
+      position: t('experience.roles.qmh.title'),
+      period: t('experience.roles.qmh.period'),
+      type: t('experience.roles.qmh.type'),
+      highlights: t('experience.roles.qmh.points')
     },
     {
-      company: "AKSA SDS",
-      position: "Backend Developer",
-      period: "September 2020 - May 2022",
-      type: "Onsite",
-      highlights: [
-        "Developed microservices architecture for high-performance applications",
-        "Implemented server-side templating and CSS preprocessors",
-        "Improved backend performance by 15% through asynchronous programming",
-        "Enhanced security with JWT 2.0 and Cloudflare Workers"
-      ]
+      company: t('experience.roles.aksa.company'),
+      position: t('experience.roles.aksa.title'),
+      period: t('experience.roles.aksa.period'),
+      type: t('experience.roles.aksa.type'),
+      highlights: t('experience.roles.aksa.points')
     }
   ];
 
@@ -93,10 +74,10 @@ const Experience = () => {
           className="text-center mb-16"
         >
           <motion.span variants={itemVariants} className="text-primary text-sm font-medium px-3 py-1 rounded-full bg-primary/10 inline-block mb-4">
-            Work Experience
+            {t('experience.title')}
           </motion.span>
           <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold">
-            Professional Journey
+            {t('experience.subtitle')}
           </motion.h2>
         </motion.div>
         
@@ -127,7 +108,7 @@ const Experience = () => {
                 </div>
                 
                 <div className="mt-6">
-                  <h4 className="font-medium mb-3">Key Contributions:</h4>
+                  <h4 className="font-medium mb-3">{t('experience.contributions')}</h4>
                   <ul className="space-y-2">
                     {exp.highlights.map((highlight, i) => (
                       <li key={i} className="flex items-start gap-2">

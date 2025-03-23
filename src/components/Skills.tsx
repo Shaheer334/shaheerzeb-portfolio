@@ -1,11 +1,13 @@
 
 import React, { useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const controls = useAnimation();
+  const { t } = useTranslation();
   
   useEffect(() => {
     if (isInView) {
@@ -39,35 +41,24 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      name: "Backend Technologies",
-      skills: [
-        "Node.js", "Express.js", "Nest.js", "MongoDB", "MySQL", "PostgreSQL", 
-        "Firebase", "Redis", "GraphQL", "Hasura", "Apache Kafka", "gRPC",
-        "Prometheus", "Grafana", "Stripe", "PayPal", "Elasticsearch", "Kibana"
-      ]
+      name: t('skills.categories.backend'),
+      skills: t('skills.backend')
     },
     {
-      name: "Languages",
-      skills: ["JavaScript", "TypeScript", "Python", "SQL"]
+      name: t('skills.categories.languages'),
+      skills: t('skills.languages')
     },
     {
-      name: "Cloud & DevOps",
-      skills: ["AWS", "GCP", "Docker", "Kubernetes", "CI/CD Pipelines"]
+      name: t('skills.categories.cloud'),
+      skills: t('skills.cloud')
     },
     {
-      name: "Software Engineering",
-      skills: [
-        "Microservices", "RESTful APIs", "Event-Driven Architecture", 
-        "Performance Optimization", "Data Protection", "Security Compliance",
-        "OOP", "Data Structures & Algorithms", "Low-Latency Applications"
-      ]
+      name: t('skills.categories.engineering'),
+      skills: t('skills.engineering')
     },
     {
-      name: "Professional Skills",
-      skills: [
-        "Team Leadership", "Mentoring", "Solutions-Oriented", "System Scalability",
-        "Cross-Team Collaboration", "Clean Code", "Documentation", "Agile Methodology"
-      ]
+      name: t('skills.categories.professional'),
+      skills: t('skills.professional')
     }
   ];
 
@@ -81,10 +72,10 @@ const Skills = () => {
           className="text-center mb-16"
         >
           <motion.span variants={itemVariants} className="text-primary text-sm font-medium px-3 py-1 rounded-full bg-primary/10 inline-block mb-4">
-            Technical Expertise
+            {t('skills.title')}
           </motion.span>
           <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold">
-            Skills & Proficiencies
+            {t('skills.subtitle')}
           </motion.h2>
         </motion.div>
         

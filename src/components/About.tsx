@@ -2,11 +2,13 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { Briefcase, GraduationCap, Award, MapPin, Mail, Linkedin, Github } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const controls = useAnimation();
+  const { t } = useTranslation();
   
   useEffect(() => {
     if (isInView) {
@@ -49,44 +51,44 @@ const About = () => {
         >
           <motion.div variants={itemVariants} className="md:col-span-2">
             <span className="text-primary text-sm font-medium px-3 py-1 rounded-full bg-primary/10 inline-block mb-6">
-              About Me
+              {t('about.title')}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Backend Engineer with <span className="text-primary">4+ years</span> of experience
+              {t('about.subtitle')}
             </h2>
             
             <div className="space-y-4 text-muted-foreground">
               <p>
-                I specialize in backend and microservices development, building low-latency, high-availability applications with a focus on performance optimization and security compliance.
+                {t('about.bio1')}
               </p>
               <p>
-                With expertise in JavaScript, TypeScript, Python, and cloud services (AWS, GCP), I design scalable systems using event-driven architecture and asynchronous programming.
+                {t('about.bio2')}
               </p>
             </div>
             
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-primary" />
-                <span>Islamabad, Pakistan</span>
+                <span>{t('about.location')}</span>
               </div>
               <a href="mailto:shaheerzeb1@gmail.com" className="flex items-center gap-3 hover:text-primary transition-colors">
                 <Mail className="h-5 w-5 text-primary" />
-                <span>shaheerzeb1@gmail.com</span>
+                <span>{t('about.email')}</span>
               </a>
               <a href="https://www.linkedin.com/in/shaheer-zeb-khan" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-primary transition-colors">
                 <Linkedin className="h-5 w-5 text-primary" />
-                <span>linkedin.com/in/shaheer-zeb-khan</span>
+                <span>{t('about.linkedin')}</span>
               </a>
               <div className="flex items-center gap-3">
                 <Github className="h-5 w-5 text-primary" />
-                <span>github.com/shaheerzebekhan</span>
+                <span>{t('about.github')}</span>
               </div>
             </div>
           </motion.div>
           
           <motion.div variants={itemVariants} className="md:col-span-3">
             <div className="bg-card rounded-2xl shadow-lg p-6 md:p-8 h-full">
-              <h3 className="text-xl font-semibold mb-6">Career Highlights</h3>
+              <h3 className="text-xl font-semibold mb-6">{t('about.highlights')}</h3>
               
               <div className="space-y-6">
                 <div className="flex gap-4">
@@ -94,9 +96,9 @@ const About = () => {
                     <Briefcase className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-medium">Professional Excellence</h4>
+                    <h4 className="font-medium">{t('about.professional.title')}</h4>
                     <p className="text-muted-foreground mt-1">
-                      Led backend teams, designed scalable microservices, and reduced API latency by 45ms while decreasing server costs by over 44%.
+                      {t('about.professional.description')}
                     </p>
                   </div>
                 </div>
@@ -106,9 +108,9 @@ const About = () => {
                     <GraduationCap className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-medium">Education</h4>
+                    <h4 className="font-medium">{t('about.education.title')}</h4>
                     <p className="text-muted-foreground mt-1">
-                      Master of Science in Information Technology from Quaid-i-Azam University with focus on Data Structures & Algorithms, OOP, Network Security, and Databases.
+                      {t('about.education.description')}
                     </p>
                   </div>
                 </div>
@@ -118,9 +120,9 @@ const About = () => {
                     <Award className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-medium">Certifications & Leadership</h4>
+                    <h4 className="font-medium">{t('about.certifications.title')}</h4>
                     <p className="text-muted-foreground mt-1">
-                      Diploma in Information Technology, Machine Learning certification from Andrew Ng. Former Director of Event Management Community Service Society and President of IIT Society at QAU.
+                      {t('about.certifications.description')}
                     </p>
                   </div>
                 </div>

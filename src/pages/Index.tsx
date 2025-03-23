@@ -39,14 +39,19 @@ const Index = () => {
     };
   }, []);
 
+  // Set the font class based on language
+  const fontClass = language === 'ar' || language === 'ur' ? 'font-arabic' : 'font-sans';
+  // Set direction based on language
+  const direction = language === 'ar' || language === 'ur' ? 'rtl' : 'ltr';
+
   return (
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className={`min-h-screen ${language === 'ar' || language === 'ur' ? 'font-arabic' : 'font-sans'}`}
-        dir={language === 'ar' || language === 'ur' ? 'rtl' : 'ltr'}
+        className={`min-h-screen ${fontClass}`}
+        dir={direction}
       >
         <Header />
         
